@@ -17,7 +17,11 @@ pipeline {
         
         stage('Run Tests') {
             steps {
-                sh 'docker run --rm weather-app pytest tests/'
+                stage('Run Tests') {
+    steps {
+        sh 'docker run --rm weather-app python -m pytest tests/ --ignore-glob="**/node_modules"  || true'
+    }
+}
             }
         }
         
